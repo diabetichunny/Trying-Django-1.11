@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ user.username }} - {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+	<h1>{{ user.username }}</h1>
+	<p>{% include 'profiles/snippets/follow_form.html' with username=user.username is_following=is_following %}</p>
+	<form action="." class="form" method="GET">
+	    <input type="text" placeholder="Search..." name="q" value="{{ request.GET.q }}">
+	    <button class="btn btn-default" type="submit">Search</button>
+    </form>
+    <hr>
+
+    {% if locations %}
+        <h3>My Restaurants:</h3>
+            {% for rest in locations %}
+                <div class="row">
+                	<div class="col-sm-12">
+                	    <div class="card card-default">
+                            <h4>{{ rest.title }}</h4>
+                            <p>
+                                <a href="{{ request.path }}?q={{ rest.location }}">
+                                    {{ rest.location }}
+                                </a>
+                                |
+                                <a href="{{ request.path }}?q={{ rest.category }}">
+                                    {{ rest.category }}
+                                </a>
+                             </p>
+                            <ul>
+                                {% for item in rest.item_set.all %}
+                                    <li style="margin-bottom: 10px;">{{ item.title }}<br>
+                                        {% for content in item.get_contents %}
+                                            <a class="badge badge-secondary" href="{{ request.path }}?q={{ content }}">
+                                                {{ content }}
+                                            </a>
+                                        {% endfor %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    {% else %}
+        <p class="lead">No items found.</p>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block head_title %}Restaurants - {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+    <h1>Adding Restaurant</h1>
+    {% include 'snippets/form_snippet.html' with another=form %}
+{% endblock content %}

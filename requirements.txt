@@ -1,0 +1,8 @@
+certifi==2018.4.16
+dj-database-url==0.5.0
+Django==1.11.15
+django-crispy-forms==1.7.2
+gunicorn==19.9.0
+python-dateutil==2.7.3
+pytz==2018.5
+six==1.11.0
